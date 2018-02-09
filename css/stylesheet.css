@@ -1,0 +1,98 @@
+.testing_pallate {
+  .activation: "#ad6364",
+  .highlight-against-gray: "#3e3b35",
+  .stable:"#6ab39b",
+  .col1: "#80bd88",
+  .col2: "#d3b67c",
+  .col3: "#5eaec0",
+  .col4: "#986535",
+  .col5: "#56542d",
+  .col6: "#b9b09e",
+  .col7: "#97ac63"
+}
+
+#main-body{
+}
+#viz{
+/*
+  onmouseover="document.body.style.overflow='hidden';"
+  onmouseout="document.body.style.overflowY='auto'; document.body.style.overflowX='hidden';"
+  preserveAspectRatio="xMinYMin meet"
+  width="650"
+  height="550"
+  viewBox= "0 0 650 550"
+*/
+}
+#legend{
+}
+
+/*
+  Main
+*/
+.mainBody-background{
+  background-color: #2B3033;
+}
+
+/*
+  Container
+*/
+.container-stroke{
+  stroke:#767678;
+}
+
+
+/*
+  title
+*/
+.title-font-family{
+  font-family: Arial,Helvetica,"san-serif";
+}
+.title-size-font{
+  font-size: 4vw;
+  font-weight: bold;
+  line-height: 1.2em;
+}
+.title-color-font{
+  color: #2B3033;
+}
+.title-color-background{
+  background:#6D6E71;
+}
+
+/*
+  font
+*/
+.general-font-family{
+  font-family: "TiemposTextWeb-Regular","Georgia";
+}
+.general-size-font{
+  font-size: 2vw;
+  line-height: 3vw;
+}
+.general-color-font{
+  color:#bdbdc1;
+}
+.small-size-font{
+  font-size: 0.40vw;
+}
+
+/*
+  objects
+*/
+.vizObj-General-stroke{
+  stroke: #fff;
+}
+.vizObj-Stable-stroke{
+  stroke: #6ab39b;
+}
+.vizObj-Active-stroke{
+  stroke: #ad6364;
+}
+.vizObj-col1{
+  fill: #80bd88;
+}
+.vizObj-col2{
+  fill: #d3b67c;
+}
+.vizObj-col3{
+  fill: #5eaec0;}
