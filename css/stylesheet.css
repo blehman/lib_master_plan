@@ -1,14 +1,19 @@
+.agg-cost-bar{
+  fill-opacity:0.20;
+  stroke:#bdbdc1;
+  stroke-width:1px;
+}
 .testing_pallate {
-  .activation: "#ad6364",
-  .highlight-against-gray: "#3e3b35",
-  .stable:"#6ab39b",
-  .col1: "#80bd88",
-  .col2: "#d3b67c",
-  .col3: "#5eaec0",
-  .col4: "#986535",
-  .col5: "#56542d",
-  .col6: "#b9b09e",
-  .col7: "#97ac63"
+  .activation: #ad6364,
+  .highlight-against-gray: #3e3b35,
+  .stable:#6ab39b,
+  .col1: #80bd88,
+  .col2: #d3b67c,
+  .col3: #5eaec0,
+  .col4: #986535,
+  .col5: #56542d,
+  .col6: #b9b09e,
+  .col7: #97ac63
 }
 
 #main-body{
@@ -79,10 +84,10 @@
 /*
   objects
 */
-.vizObj-General-stroke{
-  stroke: #fff;
+.vizObj-General-outline{
+  stroke:#bdbdc1;
 }
-.vizObj-Stable-stroke{
+.vizObj-Stable-optional{
   stroke: #6ab39b;
 }
 .vizObj-Active-stroke{
@@ -95,4 +100,5 @@
   fill: #d3b67c;
 }
 .vizObj-col3{
-  fill: #5eaec0;}
+  fill: #5eaec0;
+}

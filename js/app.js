@@ -1,30 +1,41 @@
 
 (function() {
   // call the heatmap constructor
-  var iBubbleChart = BubbleChart();
+  var iBubbles = Bubbles()
+    , iBarChart = BarChart();
 
   // get data
   d3.queue()
     .defer(d3.json, "data/expense_data.json")
     .defer(d3.csv, "data/yearly_totals_per_cost_category.csv")
+    .defer(d3.json,"data/bubbles.json")
+    .defer(d3.json,"data/yearCategory_total_lookup.json")
     //.defer(d3.json,"data/year_index.json")
     .await(runApp);
 
-  function runApp(error,expenses, totals){
+  function runApp(error,expenses, totals, bubbles, total_lookup){
     if (error) throw error;
 
     var full_set = [{
       "years":expenses.years
       , "costs":expenses.costs
       , "totals": totals
+      , "bubbles": bubbles
+      , "total_lookup":total_lookup
     }]
 
     var container = d3.select("#viz-container");
-        container.selectAll("#spare-parts")
-            .data(full_set)
-            .enter()
-            .append("div")
-            .attr('id',"spare-parts")
-            .call(iBubbleChart);
+    container.selectAll("#spare-bar-parts")
+      .data(full_set)
+      .enter()
+      .append("div")
+      .attr('id',"spare-parts")
+      .call(iBarChart);
+    container.selectAll("#spare-bubbles-parts")
+        .data(full_set)
+        .enter()
+        .append("div")
+        .attr('id',"spare-bubbles-parts")
+        .call(iBubbles);
   }
 }())
