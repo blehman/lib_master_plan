@@ -1,18 +1,16 @@
 
 function Bubbles(){
   var innerPadding = .30
-    , width = 800
+    , width = 500
     , height = 200
     , labelScale = d3.scaleBand().paddingInner(innerPadding).paddingOuter(0.50)
     , rectScale = d3.scaleBand().padding(innerPadding/2)
     , categoryNames
-    //, yearlyTotals=[0,0,0,0,0];
     , heightScale = d3.scaleLinear().range([height, 0])
     , viz
-    , colorScale = d3.scaleOrdinal().range(["#44c155", "#d3b67c", "#5eaec0"])
-    , radiusScale = d3.scaleLinear().range([1,10]).clamp(true)
+    , colorScale = d3.scaleOrdinal().range(["#80bd88", "#d3b67c", "#5eaec0"])
+    , radiusScale = d3.scaleLinear().range([1,6]).clamp(true)
     , simulation
-    , radius = 5
     , nodes;
 
   function chart(selection){
@@ -88,24 +86,7 @@ function Bubbles(){
             .attr("stroke","white")
             .attr("stroke-opacity",0.5)
             .attr("fill-opacity",1.0);
-      //
-      // get totalsx`
-      /*
-      d3.entries(dataObject.costs).forEach(function(d,i){
-        var cat = d.key
-          , values = d.value;
-        yearlyTotals=[0,0,0,0,0]
-        d3.entries(values).forEach(function(d2,i2){
-          yearlyTotals = yearlyTotals.map(function(runningTotal,runningIndex){
-            console.log(d2)
-            if (d2.key!="_factor"){
-              return runningTotal+d2.value[runningIndex]
-            }
-          })
-        })
-        console.log(yearlyTotals)
-      })
-      */
+
       function ticked(){
         // nodes are bounded by size of the svg
         nodes
@@ -113,9 +94,9 @@ function Bubbles(){
             var start = labelScale(d.year)
               , adj = rectScale(d.cost_label)
               , bandwidth = rectScale.bandwidth();
-            return d.x = Math.max(start+adj+radiusScale(d.amount), Math.min(start+adj+bandwidth - radiusScale(d.amount), d.x));} )
+            return d.x = Math.max(start+adj+radiusScale(d.amount)+1, Math.min(start+adj+bandwidth - radiusScale(d.amount)-1, d.x));} )
           .attr("cy", function(d) {
-            return d.y = Math.min(height-radiusScale(d.amount), Math.max(heightScale(dataObject.total_lookup[d.cost_label+"-"+d.year]) + radiusScale(d.amount), d.y));}
+            return d.y = Math.min(height-radiusScale(d.amount)-1, Math.max(heightScale(dataObject.total_lookup[d.cost_label+"-"+d.year]) + radiusScale(d.amount) + 1, d.y));}
           )
       }
     // end selection

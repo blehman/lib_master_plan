@@ -1,5 +1,9 @@
+.axis line,path,text{
+  fill:none;
+  stroke:#bdbdc1;
+}
 .agg-cost-bar{
-  fill-opacity:0.20;
+  fill-opacity:0.50;
   stroke:#bdbdc1;
   stroke-width:1px;
 }
