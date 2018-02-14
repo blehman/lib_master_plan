@@ -77,7 +77,7 @@ function Bubbles(){
             .data(dataObject.bubbles)
             .enter()
             .append("circle")
-            .attr("class", d => "indv-cost "+d.cost_label)
+            .attr("class", d => "indv-cost "+d.cost_label.replace(/\ /g,"-"))
             .style("fill",d => colorScale(d.cost_label))
             .attr("name",d => d.name)
             .style("stroke-width", 2)
@@ -104,11 +104,15 @@ function Bubbles(){
   // end chart
   }
 
-  chart.anything = function(x) {
-    if (!arguments.length) { return anything; }
-    anything = x;
+  chart.width = function(w) {
+    if (!arguments.length) { return width; }
+    width = w;
     return chart;
   };
-
+  chart.height = function(h) {
+    if (!arguments.length) { return height; }
+    height = h;
+    return chart;
+  };
   return chart
 }

@@ -1,6 +1,46 @@
-.axis line,path,text{
+.viz-container{
+  background-color:#f27373;
+  grid-area: viz1;
+}
+.navbar{
+  grid-area:nav;
+  background-color:#73f2a2
+}
+.sidebar1{
+  grid-area:side1;
+  background-color:#f0f273
+}
+.sidebar2{
+  grid-area:side2;
+  background-color:#f0f273
+}
+.footer{
+  grid-area:ftr;
+  background-color:#73aef2
+}
+
+#wrapper {
+  display: grid;
+  width:100%;
+  grid-template-columns: 5% repeat(10,8%) 5%;
+  grid-template-rows: 50px repeat(4,100px) 50px;
+  grid-template-areas:
+    "side1 nav nav nav nav nav nav nav nav nav nav side2"
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+    "side1 ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr side2";
+  grid-gap: 0% 0%; /*<grid-row-gap> <grid-column-gap>;*/
+}
+
+
+.axis line,path{
   fill:none;
   stroke:#bdbdc1;
+}
+.axis text{
+  fill:#bdbdc1;
 }
 .agg-cost-bar{
   fill-opacity:0.50;
@@ -31,6 +71,8 @@
   height="550"
   viewBox= "0 0 650 550"
 */
+  display: block;
+  margin: auto;
 }
 #legend{
 }

@@ -52,7 +52,7 @@ function BarChart(){
             var x = dataObject.totals.filter(containsYear)
             return dataObject.totals.filter(containsYear)})
           .enter().append("rect")
-            .attr("class",d=>"agg-cost-bar "+d.cost_category+"-"+d.year)
+            .attr("class",d=>"agg-cost-bar "+d.cost_category.replace(/\ /g,"-")+"-"+d.year)
             .attr("x", function(d) {
               return rectScale(d.cost_category); })
             .attr("y", function(d) {
@@ -71,6 +71,10 @@ function BarChart(){
             .attr("class", "axis")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(labelScale));
+
+        svg.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(heightScale))//.ticks(null, "s"))
       //
       // get totalsx`
       /*
@@ -95,9 +99,14 @@ function BarChart(){
   // end chart
   }
 
-  chart.anything = function(x) {
-    if (!arguments.length) { return anything; }
-    anything = x;
+  chart.width = function(w) {
+    if (!arguments.length) { return width; }
+    width = w;
+    return chart;
+  };
+  chart.height = function(h) {
+    if (!arguments.length) { return height; }
+    height = h;
     return chart;
   };
 

@@ -24,7 +24,17 @@
       , "total_lookup":total_lookup
     }]
 
-    var container = d3.select("#viz-container");
+    var container = d3.select(".viz-container");
+
+    var viz_width = container.node().getBoundingClientRect().width
+      , viz_height = container.node().getBoundingClientRect().height;
+
+    // set measurements
+    iBarChart.width(viz_width)
+    iBarChart.height(viz_height)
+    iBubbles.width(viz_width)
+    iBubbles.height(viz_height)
+
     container.selectAll("#spare-bar-parts")
       .data(full_set)
       .enter()
