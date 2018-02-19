@@ -3,12 +3,12 @@ function BarChart(){
   var innerPadding = .30
     , width = 500
     , height = 200
-    , labelScale = d3.scaleBand().paddingInner(innerPadding).paddingOuter(0.50)
-    , rectScale = d3.scaleBand().padding(innerPadding/2)
+    , labelScale
+    , rectScale
     , bandwidth
     , categoryNames
     //, yearlyTotals=[0,0,0,0,0];
-    , heightScale = d3.scaleLinear().range([height, 0])
+    , heightScale
     , viz
     , colorScale = d3.scaleOrdinal().range(["#80bd88", "#d3b67c", "#5eaec0"]);
 
@@ -17,22 +17,27 @@ function BarChart(){
     selection.each(function(dataObject){
       console.log(dataObject)
       // identify viz
-      svg = d3.select("#viz")
-        .append("g")
-        .attr("id","barChart-container");
+      svg = d3.select("#barChart-container");
       // get category names
       categoryNames = d3.keys(dataObject.costs);
 
       // define labelScale
-      labelScale.domain(dataObject.years)
-        .rangeRound([0,width*0.8])
+      labelScale = d3.scaleBand()
+        .paddingInner(innerPadding)
+        .paddingOuter(0.50)
+        .domain(dataObject.years)
+        .rangeRound([0,width])
 
       // define rectScale
-      rectScale.domain(categoryNames)
+      rectScale = d3.scaleBand()
+        .padding(innerPadding/2)
+        .domain(categoryNames)
         .rangeRound([0,labelScale.bandwidth()]);
 
-      // set domain for height
-      heightScale.domain(d3.extent(dataObject.totals, d => +d.value))
+      // set domain and range for height
+      heightScale = d3.scaleLinear()
+        .domain(d3.extent(dataObject.totals, d => +d.value))
+        .range([height, 0]);
 
       // set domain for color
       colorScale.domain(categoryNames)

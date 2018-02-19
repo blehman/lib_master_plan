@@ -3,45 +3,54 @@ function Bubbles(){
   var innerPadding = .30
     , width = 500
     , height = 200
-    , labelScale = d3.scaleBand().paddingInner(innerPadding).paddingOuter(0.50)
-    , rectScale = d3.scaleBand().padding(innerPadding/2)
+    , labelScale
+    , rectScale
     , categoryNames
-    , heightScale = d3.scaleLinear().range([height, 0])
+    , heightScale
     , viz
     , colorScale = d3.scaleOrdinal().range(["#80bd88", "#d3b67c", "#5eaec0"])
-    , radiusScale = d3.scaleLinear().range([1,6]).clamp(true)
+    , radiusScale
     , simulation
     , nodes;
 
   function chart(selection){
+    console.log("WOOT1")
     // note: selection is passed in from the .call(iChartType), which is the same as myHeatmap(d3.select('.stuff')) -- ??
     selection.each(function(dataObject){
+      console.log("WOOT2")
       console.log(dataObject)
       // identify viz
-      svg = d3.select("#viz")
-        .append("g")
-        .attr("id","bubbles-container");
+      svg = d3.select("#bubbles-container")
+      console.log(svg)
       // get category names
       categoryNames = d3.keys(dataObject.costs);
 
       // define labelScale
-      labelScale.domain(dataObject.years)
-        .rangeRound([0,width*0.8])
+      labelScale = d3.scaleBand()
+        .paddingInner(innerPadding)
+        .paddingOuter(0.50)
+        .domain(dataObject.years)
+        .rangeRound([0,width])
 
       // define rectScale
-      rectScale.domain(categoryNames)
+      rectScale = d3.scaleBand()
+        .padding(innerPadding/2)
+        .domain(categoryNames)
         .rangeRound([0,labelScale.bandwidth()]);
 
-      // set domain for height
-      heightScale.domain(d3.extent(dataObject.totals, d => +d.value))
+      // set domain & range for heightScale
+      heightScale = d3.scaleLinear()
+        .range([height, 0])
+        .domain(d3.extent(dataObject.totals, d => +d.value))
 
       // set domain for color
       colorScale.domain(categoryNames)
 
       // radius scale
       //radiusScale.domain(d3.extent(dataObject.bubbles,d=>d.amount))
-      radiusScale.domain([0,800])
-      console.log(radiusScale.domain())
+      radiusScale = d3.scaleLinear()
+        .domain([0,800])
+        .range([1,(rectScale.bandwidth()/2)*.75]).clamp(true)
 
       // isolate forces
       function isolate(force, filter) {
@@ -59,19 +68,25 @@ function Bubbles(){
       }
       //create forceSimulation
       simulation = d3.forceSimulation()
-            .nodes(dataObject.bubbles) // adds an x & y attribute to the data
-            .force("x", d3.forceX(function(d) {
-              var start = labelScale(d.year)
-                , adj = rectScale(d.cost_label)
-                , bandwidth = rectScale.bandwidth();
-              return start+adj+(bandwidth/2.0); }).strength(1))
-            .force("y", d3.forceY(function(d){
-              return heightScale(d.amount);
-            }))
-            .force("collide", d3.forceCollide().radius(10))
-            .force("manyBody", d3.forceManyBody().strength(-10))
-            .on("tick", ticked);
-            //.stop();
+        .nodes(dataObject.bubbles) // adds an x & y attribute to the data
+        //.velocityDecay(0.9)
+        //.alphaTarget(.001)
+        .force("collide", d3.forceCollide(function(d){
+            return (5*radiusScale(d.amount));
+          }).strength(0.8)
+        )
+        .force("y", d3.forceY(function(d){
+          return (heightScale(d.amount)*Math.random());
+        }).strength(0.1)
+        )
+        .force("x", d3.forceX(function(d) {
+          var start = labelScale(d.year)
+            , adj = rectScale(d.cost_label)
+            , bandwidth = rectScale.bandwidth();
+          return start+adj+(bandwidth/2.0); }).strength(1))
+        .force("manyBody", d3.forceManyBody().strength(-10))
+        .on("tick", ticked);
+        //.stop();
 
       nodes = svg.selectAll("circle")
             .data(dataObject.bubbles)
@@ -80,12 +95,8 @@ function Bubbles(){
             .attr("class", d => "indv-cost "+d.cost_label.replace(/\ /g,"-"))
             .style("fill",d => colorScale(d.cost_label))
             .attr("name",d => d.name)
-            .style("stroke-width", 2)
-            .attr("r",d=>radiusScale(d.amount))
-            .attr("opacity",1)
-            .attr("stroke","white")
-            .attr("stroke-opacity",0.5)
-            .attr("fill-opacity",1.0);
+            .attr("r",d=>radiusScale(d.amount));
+
 
       function ticked(){
         // nodes are bounded by size of the svg

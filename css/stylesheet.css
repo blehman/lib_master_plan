@@ -1,5 +1,5 @@
 .viz-container{
-  background-color:#f27373;
+  background-color:#2B3033;
   grid-area: viz1;
 }
 .navbar{
@@ -21,17 +21,29 @@
 
 #wrapper {
   display: grid;
+  position: relative
   width:100%;
-  grid-template-columns: 5% repeat(10,8%) 5%;
-  grid-template-rows: 50px repeat(4,100px) 50px;
+  grid-template-columns: 25% repeat(10,7%) 5%;
+  grid-template-rows: .5fr repeat(4,1fr) .5fr;
   grid-template-areas:
-    "side1 nav nav nav nav nav nav nav nav nav nav side2"
+    "nav nav nav nav nav nav nav nav nav nav nav nav"
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
     "side1 ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr side2";
-  grid-gap: 0% 0%; /*<grid-row-gap> <grid-column-gap>;*/
+
+  grid-gap: 0fr 0fr; /*<grid-row-gap> <grid-column-gap>;*/
+  /*
+  grid:
+    "side1 nav nav nav nav nav nav nav nav nav nav side2" 50px
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
+    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
+    "side1 ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr side2" 50px
+    / 5% repeat(10,8%) 5%;
+  */
 }
 
 
@@ -45,7 +57,7 @@
 .agg-cost-bar{
   fill-opacity:0.50;
   stroke:#bdbdc1;
-  stroke-width:1px;
+  stroke-width:0.5px;
 }
 .testing_pallate {
   .activation: #ad6364,
@@ -62,17 +74,31 @@
 
 #main-body{
 }
+
+#viz-container{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  /*vertical-align: top;*/
+  overflow: hidden;
+}
 #viz{
+  /*display: inline-block;
+
 /*
+  top: 10px;
+  left: 0;
   onmouseover="document.body.style.overflow='hidden';"
   onmouseout="document.body.style.overflowY='auto'; document.body.style.overflowX='hidden';"
   preserveAspectRatio="xMinYMin meet"
   width="650"
   height="550"
   viewBox= "0 0 650 550"
-*/
+
   display: block;
   margin: auto;
+  */
+  /*margin-top: 10px;*/
 }
 #legend{
 }
@@ -83,14 +109,12 @@
 .mainBody-background{
   background-color: #2B3033;
 }
-
 /*
   Container
 */
 .container-stroke{
   stroke:#767678;
 }
-
 
 /*
   title
@@ -126,6 +150,10 @@
 .small-size-font{
   font-size: 0.40vw;
 }
+.general-text-align{
+  text-align: center;
+  vertical-align: middle;
+}
 
 /*
   objects
@@ -147,4 +175,11 @@
 }
 .vizObj-col3{
   fill: #5eaec0;
+}
+
+.indv-cost{
+  stroke-width:0.5px;
+  stroke:white;
+  stroke-opacity:0.5;
+  fill-opacity:1.0;
 }

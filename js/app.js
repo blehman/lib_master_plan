@@ -30,22 +30,30 @@
       , viz_height = container.node().getBoundingClientRect().height;
 
     // set measurements
+    d3.select("#viz")
+      .attr("preserveAspectRatio","xMinYMin meet")
+      .attr("viewBox","-60 -12 " + viz_width*1.10+ " " +viz_height*1.15)
+    console.log(viz_width)
+    console.log(viz_height)
+
     iBarChart.width(viz_width)
     iBarChart.height(viz_height)
     iBubbles.width(viz_width)
     iBubbles.height(viz_height)
-
-    container.selectAll("#spare-bar-parts")
+    container.select("svg").selectAll("#barChart-container")
       .data(full_set)
       .enter()
-      .append("div")
-      .attr('id',"spare-parts")
+      .append("g")
+      .attr('id',"barChart-container")
       .call(iBarChart);
-    container.selectAll("#spare-bubbles-parts")
-        .data(full_set)
-        .enter()
-        .append("div")
-        .attr('id',"spare-bubbles-parts")
-        .call(iBubbles);
+    container.select("svg").selectAll("#bubbles-container")
+      .data(full_set)
+      .enter()
+      .append("g")
+      .attr('id',"bubbles-container")
+      .call(iBubbles);
+    window.addEventListener("resize", function(){
+      //wtf
+    });
   }
 }())
