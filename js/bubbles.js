@@ -14,10 +14,8 @@ function Bubbles(){
     , nodes;
 
   function chart(selection){
-    console.log("WOOT1")
     // note: selection is passed in from the .call(iChartType), which is the same as myHeatmap(d3.select('.stuff')) -- ??
     selection.each(function(dataObject){
-      console.log("WOOT2")
       console.log(dataObject)
       // identify viz
       svg = d3.select("#bubbles-container")

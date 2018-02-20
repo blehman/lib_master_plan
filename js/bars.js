@@ -1,7 +1,7 @@
 
 function BarChart(){
   var innerPadding = .30
-    , width = 500
+    , width = 10
     , height = 200
     , labelScale
     , rectScale
@@ -26,7 +26,7 @@ function BarChart(){
         .paddingInner(innerPadding)
         .paddingOuter(0.50)
         .domain(dataObject.years)
-        .rangeRound([0,width])
+        .rangeRound([0,width]);
 
       // define rectScale
       rectScale = d3.scaleBand()
@@ -79,7 +79,7 @@ function BarChart(){
 
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(heightScale))//.ticks(null, "s"))
+            .call(d3.axisLeft(heightScale).ticks(5,"s"))//.ticks(null, "s"))
       //
       // get totalsx`
       /*

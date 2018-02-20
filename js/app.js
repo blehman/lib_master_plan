@@ -27,12 +27,14 @@
     var container = d3.select(".viz-container");
 
     var viz_width = container.node().getBoundingClientRect().width
-      , viz_height = container.node().getBoundingClientRect().height;
+      , viz_height = container.node().getBoundingClientRect().height
+      , k = (viz_width/687.96875*1.10) // ideal ratio
+      , left_margin = (k>=1)?60:60*k;
 
     // set measurements
     d3.select("#viz")
       .attr("preserveAspectRatio","xMinYMin meet")
-      .attr("viewBox","-60 -12 " + viz_width*1.10+ " " +viz_height*1.15)
+      .attr("viewBox","-60 -12 " + (viz_width*1.10+60)+ " " +(viz_height*1.15+12))
     console.log(viz_width)
     console.log(viz_height)
 

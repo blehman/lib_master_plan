@@ -21,10 +21,9 @@
 
 #wrapper {
   display: grid;
-  position: relative
-  width:100%;
+  position: relative;
   grid-template-columns: 25% repeat(10,7%) 5%;
-  grid-template-rows: .5fr repeat(4,1fr) .5fr;
+  grid-template-rows: auto repeat(4,1fr) auto;
   grid-template-areas:
     "nav nav nav nav nav nav nav nav nav nav nav nav"
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
@@ -33,7 +32,9 @@
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
     "side1 ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr side2";
 
+  /*
   grid-gap: 0fr 0fr; /*<grid-row-gap> <grid-column-gap>;*/
+  */
   /*
   grid:
     "side1 nav nav nav nav nav nav nav nav nav nav side2" 50px
