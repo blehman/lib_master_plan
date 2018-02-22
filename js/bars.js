@@ -10,12 +10,13 @@ function BarChart(){
     //, yearlyTotals=[0,0,0,0,0];
     , heightScale
     , viz
-    , colorScale = d3.scaleOrdinal().range(["#80bd88", "#d3b67c", "#5eaec0"]);
+    , colorScale = d3.scaleOrdinal().range(["#80bd88", "#d3b67c", "#5eaec0"])
+    , xAxisTicks
+    , yAxisTicks;
 
   function chart(selection){
     // note: selection is passed in from the .call(iChartType), which is the same as myHeatmap(d3.select('.stuff')) -- ??
     selection.each(function(dataObject){
-      console.log(dataObject)
       // identify viz
       svg = d3.select("#barChart-container");
       // get category names
@@ -72,14 +73,16 @@ function BarChart(){
             .attr("fill", function(d) {
               return colorScale(d.cost_category); });
 
+        // add x-axis
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(labelScale));
+            .call(d3.axisBottom(labelScale).ticks(xAxisTicks,"s"));
 
+        // add y-axis
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(heightScale).ticks(5,"s"))//.ticks(null, "s"))
+            .call(d3.axisLeft(heightScale).ticks(yAxisTicks,"s"))//.ticks(null, "s"))
       //
       // get totalsx`
       /*
@@ -114,6 +117,15 @@ function BarChart(){
     height = h;
     return chart;
   };
-
+  chart.yAxisTicks = function(y) {
+    if (!arguments.length) { return yAxisTicks; }
+    yAxisTicks = y;
+    return chart;
+  };
+  chart.xAxisTicks = function(x) {
+    if (!arguments.length) { return xAxisTicks; }
+    xAxisTicks = x;
+    return chart;
+  };
   return chart
 }

@@ -1,7 +1,6 @@
 body, html {
   height: 100%;
 }
-
 .viz-container{
   background-color:#2B3033;
   grid-area: viz1;
@@ -35,24 +34,48 @@ body, html {
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
     "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
-    "side1 ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr side2";
-
-  /*
-  grid-gap: 0fr 0fr; /*<grid-row-gap> <grid-column-gap>;*/
-  */
-  /*
-  grid:
-    "side1 nav nav nav nav nav nav nav nav nav nav side2" 50px
-    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
-    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
-    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
-    "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2" 100px
-    "side1 ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr side2" 50px
-    / 5% repeat(10,8%) 5%;
-  */
+    "ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr";
 }
-
-
+.scrollContent {
+  display:block;
+  grid-column: 1;
+  grid-row: 2 / 6;
+  background-color:#ad6364;
+  opacity: 0.75;
+}
+.legend{
+  display:block;
+  grid-column: 8/12;
+  grid-row: 2 / 3;
+  background-color:#ad6364;
+  opacity: 0.75;
+}
+@media (max-width:600px){
+  .scrollContent {
+    display:block;
+    grid-column: 7 / 12;
+    grid-row: 2 / 5;
+    background-color:#ad6364;
+    opacity: 0.75;
+  }
+  .legend{
+    display:none;
+  }
+  #wrapper {
+    display: grid;
+    position: relative;
+    height:100%;
+    grid-template-columns: 5% repeat(10,9%) 5%;
+    grid-template-rows: 5% repeat(4,20%) 5%;
+    grid-template-areas:
+      "nav nav nav nav nav nav nav nav nav nav nav nav"
+      "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+      "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+      "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+      "side1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 viz1 side2"
+      "ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr ftr";
+  }
+}
 .axis line,path{
   fill:none;
   stroke:#bdbdc1;
@@ -129,12 +152,12 @@ body, html {
   title
 */
 .title-font-family{
-  font-family: Arial,Helvetica,"san-serif";
+  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 }
 .title-size-font{
-  font-size: 4vw;
+  font-size: 14px;
   font-weight: bold;
-  line-height: 1.2em;
+  line-height: 25px;
 }
 .title-color-font{
   color: #2B3033;
@@ -147,11 +170,11 @@ body, html {
   font
 */
 .general-font-family{
-  font-family: "TiemposTextWeb-Regular","Georgia";
+  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 }
 .general-size-font{
-  font-size: 2vw;
-  line-height: 3vw;
+  font-size: 14px;
+  line-height: 30px;
 }
 .general-color-font{
   color:#bdbdc1;

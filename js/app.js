@@ -2,7 +2,8 @@
 (function() {
   // call the heatmap constructor
   var iBubbles = Bubbles()
-    , iBarChart = BarChart();
+    , iBarChart = BarChart()
+    , instances = [iBubbles, iBarChart];
 
   // get data
   d3.queue()
@@ -34,26 +35,36 @@
         }, 100);
     };
 
-
     function reDraw(){
       var container = d3.select(".viz-container");
       var width = container.node().getBoundingClientRect().width
         , height = container.node().getBoundingClientRect().height
-        , margin = {top: 20, right: 10, bottom: 30, left: 30}
+        , margin = {top: 20, right: 10, bottom: 30, left: 37}
         , viz_width = width - margin.left - margin.right
         , viz_height = height - margin.top - margin.bottom
+        , xAxisTicks = ((width<270)?0:4)
+        , yAxisTickScale = d3.scaleLinear().domain([230,500]).range([2,9]).clamp(true)
+        , yAxisTicks = yAxisTickScale(height);
 
+        function setter(iChart){
+          iChart.width(viz_width)
+          iChart.height(viz_height)
+          iChart.xAxisTicks(xAxisTicks)
+          iChart.yAxisTicks(yAxisTicks)
+          return iChart;
+        }
+
+        instances.map(setter)
         //, k = (viz_width/687.96875*1.10) // ideal ratio
         //, left_margin = (k>=1)?60:60*k;
-        //console.log(viz_width)
-        //console.log(viz_height)
         //d3.select("#viz")
           //.attr("preserveAspectRatio","xMinYMin meet")
           //.attr("viewBox","-60 -12 " + (viz_width*1.10+60)+ " " +(viz_height*1.15+12))
-      iBarChart.width(viz_width)
-      iBarChart.height(viz_height)
-      iBubbles.width(viz_width)
-      iBubbles.height(viz_height)
+      //iBarChart.width(viz_width)
+      //iBarChart.height(viz_height)
+
+      //iBubbles.width(viz_width)
+      //iBubbles.height(viz_height)
       // remove all children in svg
       container.select("svg").selectAll("*").remove()
       // build margins on svg & add svg-elments-container
@@ -63,7 +74,6 @@
         .append("g")
         .attr("id","svg-elements-container")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
       // draw barChart
       d3.select("#svg-elements-container").selectAll("#barChart-container")
         .data(full_set)

@@ -11,15 +11,15 @@ function Bubbles(){
     , colorScale = d3.scaleOrdinal().range(["#80bd88", "#d3b67c", "#5eaec0"])
     , radiusScale
     , simulation
-    , nodes;
+    , nodes
+    , yAxisTicks
+    , xAxisTicks;
 
   function chart(selection){
     // note: selection is passed in from the .call(iChartType), which is the same as myHeatmap(d3.select('.stuff')) -- ??
     selection.each(function(dataObject){
-      console.log(dataObject)
       // identify viz
       svg = d3.select("#bubbles-container")
-      console.log(svg)
       // get category names
       categoryNames = d3.keys(dataObject.costs);
 
@@ -121,6 +121,16 @@ function Bubbles(){
   chart.height = function(h) {
     if (!arguments.length) { return height; }
     height = h;
+    return chart;
+  };
+  chart.yAxisTicks = function(y) {
+    if (!arguments.length) { return yAxisTicks; }
+    yAxisTicks = y;
+    return chart;
+  };
+  chart.xAxisTicks = function(x) {
+    if (!arguments.length) { return xAxisTicks; }
+    xAxisTicks = x;
     return chart;
   };
   return chart
