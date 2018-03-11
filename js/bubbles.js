@@ -13,16 +13,18 @@ function Bubbles(){
     , simulation
     , nodes
     , yAxisTicks
-    , xAxisTicks;
+    , xAxisTicks
+    , containerID = "bubbles-container";
 
   function chart(selection){
     // note: selection is passed in from the .call(iChartType), which is the same as myHeatmap(d3.select('.stuff')) -- ??
     selection.each(function(dataObject){
+      console.log(dataObject.costs)
       // identify viz
-      svg = d3.select("#bubbles-container")
+      svg = d3.select("#"+containerID)
       // get category names
       categoryNames = d3.keys(dataObject.costs);
-
+      console.log(categoryNames)
       // define labelScale
       labelScale = d3.scaleBand()
         .paddingInner(innerPadding)
@@ -131,6 +133,11 @@ function Bubbles(){
   chart.xAxisTicks = function(x) {
     if (!arguments.length) { return xAxisTicks; }
     xAxisTicks = x;
+    return chart;
+  };
+  chart.containerID = function(c) {
+    if (!arguments.length) { return containerID; }
+    containerID = c;
     return chart;
   };
   return chart

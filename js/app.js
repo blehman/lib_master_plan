@@ -3,7 +3,9 @@
   // call the heatmap constructor
   var iBubbles = Bubbles()
     , iBarChart = BarChart()
-    , instances = [iBubbles, iBarChart];
+    , iLegend = Legend()
+    , chartInstances = [iBubbles, iBarChart, iLegend]
+    , deets = {x:0,y:0,width:0,height:0};
 
   // get data
   d3.queue()
@@ -44,50 +46,82 @@
         , viz_height = height - margin.top - margin.bottom
         , xAxisTicks = ((width<270)?0:4)
         , yAxisTickScale = d3.scaleLinear().domain([230,500]).range([2,9]).clamp(true)
-        , yAxisTicks = yAxisTickScale(height);
+        , yAxisTicks = yAxisTickScale(height)
+        ;
 
-        function setter(iChart){
-          iChart.width(viz_width)
-          iChart.height(viz_height)
+      // setter function for all chart settings
+      function setter(iChart){
+        iChart.width(viz_width)
+        iChart.height(viz_height)
+        if (iChart!=iLegend){
           iChart.xAxisTicks(xAxisTicks)
           iChart.yAxisTicks(yAxisTicks)
-          return iChart;
+        }else{
+          //info = d3.selectAll("#legend-container.title-font-family").node().getBoundingClientRect()
+          //p = svgPoint(document.getElementById('viz'),info.x,info.y)
+          /*
+          deets = {
+            x: info.x
+            , y: info.y
+            , width: info.width
+            , height: info.height
+          }
+          iChart.legendDeets(deets)
+          */
         }
+        return iChart;
+      }
 
-        instances.map(setter)
-        //, k = (viz_width/687.96875*1.10) // ideal ratio
-        //, left_margin = (k>=1)?60:60*k;
-        //d3.select("#viz")
-          //.attr("preserveAspectRatio","xMinYMin meet")
-          //.attr("viewBox","-60 -12 " + (viz_width*1.10+60)+ " " +(viz_height*1.15+12))
-      //iBarChart.width(viz_width)
-      //iBarChart.height(viz_height)
+      // update appropriate settings
+      chartInstances.map(setter)
 
-      //iBubbles.width(viz_width)
-      //iBubbles.height(viz_height)
-      // remove all children in svg
-      container.select("svg").selectAll("*").remove()
+      // function to convert screen coords to svg coords
+      function svgPoint(element, x, y) {
+        var svg = document.getElementById('viz')
+          , pt = svg.createSVGPoint();
+
+        pt.x = x;
+        pt.y = y;
+
+        return pt.matrixTransform(element.getScreenCTM().inverse());
+      }
+      // build instances container
+      container.select("#viz").selectAll("*").remove()
+      d3.select("#legend-container").selectAll("*").remove()
       // build margins on svg & add svg-elments-container
+
       container.select("svg")
         .attr("width", viz_width + margin.left + margin.right)
         .attr("height", viz_height + margin.top + margin.bottom)
         .append("g")
         .attr("id","svg-elements-container")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      // draw barChart
-      d3.select("#svg-elements-container").selectAll("#barChart-container")
-        .data(full_set)
-        .enter()
-        .append("g")
-        .attr('id',"barChart-container")
-        .call(iBarChart);
-      // draw bubbles
-      d3.select("#svg-elements-container").selectAll("#bubbles-container")
-        .data(full_set)
-        .enter()
-        .append("g")
-        .attr('id',"bubbles-container")
-        .call(iBubbles);
+
+      // draw chartInstances
+      chartInstances.forEach(function(iChart,i){
+        if (iChart == iLegend){
+          // add legend-svg
+          d3.select("#"+iChart.containerID())
+            .append("svg")
+            .attr("id","legend-svg")
+            .attr("height","100%")
+            .attr("width","100%")
+            .selectAll("g")
+          .data(full_set)
+            .enter().append("g")
+            .attr("id","legend-bars-container")
+            .call(iLegend);
+
+        }else{
+          // add elements to viz-svg
+          d3.select("#svg-elements-container").selectAll("#"+iChart.containerID())
+            .data(full_set)
+            .enter()
+            .append("g")
+            .attr('id',iChart.containerID())
+            .call(iChart);
+        }
+      })
     }
   }
 }())
