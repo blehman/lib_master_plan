@@ -17,7 +17,10 @@
         <script src="js/bars.js" type="text/javascript"></script>
         <script src="js/bubbles.js" type="text/javascript"></script>
         <script src="js/legend.js" type="text/javascript"></script>
-        <!-- CSS -->
+        <script src="js/scrolling.js" type="text/javascript"></script>
+
+        <!-- linked CSS -->
+        <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
         <link href="css/stylesheet.css" type="text/css" rel="stylesheet">
 
         <style>
@@ -36,7 +39,11 @@
         <div class="sidebar2 title-font-family general-size-font title-color-font general-text-align title-color-background">-</div>
         <div class="footer title-font-family general-size-font title-color-font general-text-align title-color-background">Footer</div>
         <div class="interaction title-font-family general-size-font title-color-font general-text-align title-color-background">Interaction</div>
-        <div class="scrollContent title-font-family general-size-font title-color-font general-text-align">Scroll Content</div>
+        <div id="scrollContent" class="scrollContent title-font-family general-size-font title-color-font general-text-align">
+          <section class="step">Question: how do we make this "div" scrollable from anywhere on the page? The problem seems vexing because of the use of CSS Grid, which doesn't seem to play nicely with fixed positioning of a div.</section>
+          <section class="step">This is new content. Soon, this info will fade in as the prior section is faded out of view.</section>
+          <section class="step">Lastly, we'll add an interaction to the graph that is triggered on the scrolling events (ie. we track the section location).</section>
+        </div>
         <div id="legend-container" class=""></div>
       </div>
       <script src="js/app.js" type="text/javascript">

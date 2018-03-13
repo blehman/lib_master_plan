@@ -47,25 +47,10 @@ function Legend(){
 
      // define rectScale
      bandWidth = d3.selectAll("#legend-container").node().getBoundingClientRect().height
-     console.log(bandWidth)
      rectScale = d3.scaleBand()
        .padding(innerPadding/2)
        .domain(categoryNames)
        .rangeRound([0,bandWidth]);
-
-     // add black squares #2B3033
-     svg.append("g")
-         .classed("legend-background-bars",true)
-         .selectAll("g")
-         .data(categoryNames)
-       .enter().append("rect")
-         .attr("id",d => d)
-         .classed("background-cost-bar",true)
-         .attr("fill", "#2B3033" )
-         .attr("x", "10px")
-         .attr("y", d => rectScale(d) )
-         .attr("width","40px")
-         .attr("height",rectScale.bandwidth());
 
      // add rectangles to the graph
      svg.append("g")
@@ -90,6 +75,7 @@ function Legend(){
         .attr("x", "50px")
         .attr("y", d => rectScale(d) + rectScale.bandwidth()/2 )
         .attr("dy", ".35em");
+
 
     // end selection
     })

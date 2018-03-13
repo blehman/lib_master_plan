@@ -4,7 +4,8 @@
   var iBubbles = Bubbles()
     , iBarChart = BarChart()
     , iLegend = Legend()
-    , chartInstances = [iBubbles, iBarChart, iLegend]
+    , iScroller = Scroller()
+    , chartInstances = [iBubbles, iBarChart, iLegend, iScroller]
     , deets = {x:0,y:0,width:0,height:0};
 
   // get data
@@ -53,21 +54,9 @@
       function setter(iChart){
         iChart.width(viz_width)
         iChart.height(viz_height)
-        if (iChart!=iLegend){
+        if ((iChart!=iLegend)&(iChart!=iScroller)){
           iChart.xAxisTicks(xAxisTicks)
           iChart.yAxisTicks(yAxisTicks)
-        }else{
-          //info = d3.selectAll("#legend-container.title-font-family").node().getBoundingClientRect()
-          //p = svgPoint(document.getElementById('viz'),info.x,info.y)
-          /*
-          deets = {
-            x: info.x
-            , y: info.y
-            , width: info.width
-            , height: info.height
-          }
-          iChart.legendDeets(deets)
-          */
         }
         return iChart;
       }
