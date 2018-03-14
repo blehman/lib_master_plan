@@ -30,8 +30,7 @@ function Scroller(){
 
 
       function scrolling(){
-        console.log("SCROLLING IS HAPPENING!")
-        console.log(console.log(this.scrollTop))
+
       }
     // end selection
     })
