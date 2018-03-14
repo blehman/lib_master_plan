@@ -63,15 +63,17 @@ body, html {
   display:block;
   grid-column: 1/3;
   grid-row: 2 / 6;
-  background-color:#ad6364;
-  opacity: 0.75;
+  /*background-color:#ad6364;*/
+  /*opacity: 0.75;*/
   overflow: auto;
+  background-color:#2B3033;
 }
 .step{
   margin-bottom: 300px;
   overflow: auto;
   max-height: 100vh;
   position: relative;
+  fill:#bdbdc1;
 }
 
 
@@ -86,8 +88,6 @@ body, html {
     display:block;
     grid-column: 6 / 12;
     grid-row: 2 / 4;
-    background-color:#ad6364;
-    opacity: 0.75;
   }
   #legend-container{
     display:block;
@@ -118,8 +118,6 @@ body, html {
     display:block;
     grid-column: 1 / 5;
     grid-row: 2 / 6;
-    background-color:#ad6364;
-    opacity: 0.75;
   }
   #legend-container{
     display:block;
@@ -249,7 +247,7 @@ body, html {
   font-family: 'Nova Mono', monospace;
 }
 .general-size-font{
-  font-size: 14px;
+  font-size: 12px;
   line-height: 30px;
 }
 .general-color-font{
