@@ -18,7 +18,12 @@ body, html {
 }
 #legend-svg{
 }
-
+#test-content{
+  display:block;
+  grid-column: 1/13;
+  grid-row: 1 / 7;
+  overflow: auto;
+}
 .viz-container{
   background-color:#2B3033;
   grid-area: viz1;
@@ -43,6 +48,7 @@ body, html {
   grid-area:int;
   background-color:#73aef2;
 }
+
 #wrapper {
   display: grid;
   position: fixed;

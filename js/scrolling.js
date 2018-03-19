@@ -7,9 +7,16 @@ function Scroller(){
     // note: selection is passed in from the .call(iChartType), which is the same as myHeatmap(d3.select('.stuff')) -- ??
     selection.each(function(dataObject){
       // identify viz
+      var viz = d3.select("body");
+      var scroll = d3.select("#scrollContent");
+      viz.on("wheel", function() {
+        scroll.property("scrollTop", +scroll.property("scrollTop") + d3.event.deltaY)
+      });
+
+
+
       d3.select("#scrollContent")
         .on("scroll",scrolling);
-
 
       var startPos
         , sections = d3.selectAll(".step")
@@ -32,6 +39,7 @@ function Scroller(){
       function scrolling(){
 
       }
+
     // end selection
     })
   // end chart
