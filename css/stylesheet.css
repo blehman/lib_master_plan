@@ -52,6 +52,7 @@ body, html {
 #wrapper {
   display: grid;
   position: fixed;
+  overflow:hidden;
   height:100%;
   grid-template-columns: 25% repeat(10,7%) 5%;
   grid-template-rows: 5% repeat(4,15%) 30% 5%;
