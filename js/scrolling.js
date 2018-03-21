@@ -12,7 +12,9 @@ function Scroller(){
       viz.on("wheel", function() {
         scroll.property("scrollTop", +scroll.property("scrollTop") + d3.event.deltaY)
       });
-
+      viz.on("touchmove", function() {
+        scroll.property("scrollTop", +scroll.property("scrollTop") + d3.event.deltaY)
+      });
       scroll.on("scroll",scrolling);
 
       var startPos
