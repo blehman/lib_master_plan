@@ -13,10 +13,7 @@ function Scroller(){
         scroll.property("scrollTop", +scroll.property("scrollTop") + d3.event.deltaY)
       });
 
-
-
-      d3.select("#scrollContent")
-        .on("scroll",scrolling);
+      scroll.on("scroll",scrolling);
 
       var startPos
         , sections = d3.selectAll(".step")
@@ -35,9 +32,8 @@ function Scroller(){
       // get category names
       categoryNames = d3.keys(dataObject.costs);
 
-
       function scrolling(){
-
+        console.log(scroll.property("scrollTop"))
       }
 
     // end selection
